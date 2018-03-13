@@ -1,0 +1,67 @@
+package main
+
+import (
+	"fmt"
+)
+
+func init() {
+	fmt.Println("Hello from init")
+}
+
+type greeting struct{}
+
+var Greeter greeting
+
+var greetFunction = func() { fmt.Println("hello") }
+
+func (greeting) Reload(c chan<- bool) {
+	greetFunction = func() { fmt.Println("hello, I've changed") }
+
+	c <- true
+}
+
+var hello = "Hello"
+
+func (greeting) Greet() {
+	greetFunction()
+
+	// 	fmt.Println(hello)
+
+	// 	fmt.Printf("how many threads do we have? %v\n", runtime.NumCPU())
+
+	// 	f, err := os.Create("tmp/dat2.go")
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
+
+	// 	defer f.Close()
+
+	// 	w := bufio.NewWriter(f)
+	// 	_, err = w.WriteString(`package main
+
+	// import "fmt"
+
+	// func main() {
+	// 	fmt.Println("Hello from other file I just created")
+	// }
+	// `)
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
+
+	// 	w.Flush()
+
+	// 	command := exec.Command("go", "run", "tmp/dat2.go")
+
+	// 	// set var to get the output
+	// 	var out bytes.Buffer
+
+	// 	// set the output to our variable
+	// 	command.Stdout = &out
+	// 	err = command.Run()
+	// 	if err != nil {
+	// 		log.Println(err)
+	// 	}
+
+	// 	fmt.Println(out.String())
+}
